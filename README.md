@@ -2,6 +2,19 @@
 # fugitive
 a secure ephemoral (self-deleting) web chat application written in php with minimal dependancies
 
+## goals
+
+1. run this server on a dark net server (.onion, .i2p, .bit, etc.)
+2. no javascript to exploit
+3. no logins to exploit
+4. no logs / data stored permanently
+5. private chat rooms anyone can create with blockchain (base58) hash for room id (yay, we are blockchain bandwagon!)
+6. users and chat rooms auto-wiped on inactivity as well as via destroy button
+7. communicate securely using out-of-band verification (users can confirm via second form of comms their current session usernames and chat hash id and then 'go secure' much like OTR chat.
+8. deploy quickly with minimal / no dependancies on any server including raspberry pi's / other lite hardware.
+9. auto-burn messages so you don't have to worry about leaving a trail, because we already have a lot of worries in life!
+10. avoid incarceration, coercion, blackmail, capture, etc. for speaking your mind to others. even in a police state, this server will keep you secure to type your mind to another. This will not protect your machine though! remember you could still have keyloggers, etc. backdooring your machine and owning your ass. secure yourself Qubes, Tails, etc. on open source hardware / software using DNScrypt, Privoxy, etc. This is BEYOND the scope of this project. Stay safe out there!
+
 ## quickstart   
 _note: not fully working yet, only user info is displayed and stored as session, welcome to fork and merge request to add messaging into the build-in sqlite db or redis expiring hashes (planned soon)_   
 1. Ensure you have PHP installed and Predis and Redis
