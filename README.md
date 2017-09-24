@@ -14,7 +14,39 @@ _note: not fully working yet, only user info is displayed and stored as session,
 3. `brew install redis-server`
 4. `brew install php72-redis`
 
+## install guide Ubuntu 16.04 LTS
+
+1. update apt
+2. install redis, php7+, e.g. `sudo apt install -y redis-server sudo apt-get install php7.0-fpm php7.0-redis`
+3. install nginx `sudo apt install -y nginx
+
 ## style guide   
 Logo: link: (https://j1c.co/2y1TQZV)     
 font: Josefin Sans     
 
+## default nginx for php-fpm
+
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.php index.html index.htm index.nginx-debian.html;
+
+    server_name server_domain_or_IP;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
