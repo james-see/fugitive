@@ -15,6 +15,6 @@ _note: not fully working yet, only user info is displayed and stored as session,
 4. `brew install php72-redis`
 
 ## style guide   
-Logo: link: `https://user-images.githubusercontent.com/616585/30786714-76a78606-a148-11e7-8879-f9fb9284bf40.png`   
+Logo: link: `https://j1c.co/2y1TQZV`   
 font: Josefin Sans     
 
