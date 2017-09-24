@@ -63,3 +63,7 @@ server {
     }
 }
 ```
+
+## Screenshot of working demo:
+
+![demo screenshot](https://user-images.githubusercontent.com/616585/30787067-02f8f77e-a14f-11e7-914f-6f2fb4fc790d.png)
