@@ -135,7 +135,7 @@ h1 {
 </style>
 </head>
 <body>
-    <h1><?php echo str_repeat("EXCOM CHAT ", 7);?></h1>
+    <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
         <form action='add.php' id='EXCOM' method='POST'>
             <ul>
@@ -146,7 +146,7 @@ h1 {
         </form>
     </div>
     <div>
-        <h1>EXCOM PUBLIC CHAT</h1>
+        <h1>FUGITIVE PUBLIC CHAT</h1>
         <h2>Current Users:</h2>
         <?php include('public.php');?>
     </div>
