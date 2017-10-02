@@ -1,4 +1,5 @@
 <?php
+	include('/usr/share/getit.php');
 	ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,7 +19,7 @@ if ($ismember == 0) {
 $currentusers_array = $r->smembers("current_public_users");
 echo "<ul>";
 foreach ($currentusers_array as $key => $value) {
-    echo "<li><span class='sender'>$value</span></li>";
+    echo "<li style='background: #4d4d4d;'><span class='sender'>$value</span></li>";
 } 
 echo "</ul>";
 ?>

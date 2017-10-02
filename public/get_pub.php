@@ -1,24 +1,26 @@
 <?php
-	include('/usr/share/getit.php');
-	ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-$public_chat_array = $r->keys("public_chat*");
-//echo "<ul>";
+//	ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+// we don't need to instantiate redis, already connected
+$public_chat_array = $r->keys("pc_*");
+
+// loop through public_chat keys to get values into array
 $fullmessages = array();
 foreach ($public_chat_array as $key => $value) {
 	$content_get = $r->get($value);
-	$fullmessages[] = $content_get;
-	//$realvalues = explode('_',$content_get);
-    //echo "<li><span class='sender'>DateTime: $realvalues[0] User: $realvalues[1] Message: $realvalues[2]</span></li>";
-} 
-//echo "</ul>";
-echo "<ul>";
+	$fullmessages[] = $content_get; // add content to array
+	} 
+
+// sort array by date time descending using arsort
 arsort( $fullmessages, SORT_STRING);
-#var_dump($fullmessages);
+
+// for each message string parse out the values and print them in the public chat list in order of date desc
+echo "<ul id='public-messages'>";
 foreach ($fullmessages as $keyy => $valuee) {
 	$realvalues = explode('_',$valuee);
-	echo "<li class='publik'><span>DateTime: $realvalues[0] User: $realvalues[1] Message: $realvalues[2]</span></li>";
+	$newDate = date("m d Y h:i:s", strtotime($realvalues[0]));
+	echo "<li class='publik'><span class='sender'> $realvalues[1]</span><span class='messager' title='$newDate'>$realvalues[2]</span></li>";
 }
 echo "</ul>";
 ?>

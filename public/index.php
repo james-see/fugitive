@@ -8,12 +8,22 @@
 	#echo date('Y-m-d');
 	$curdate = date('Y-m-d');
 
+function guidv4($data)
+{
+    assert(strlen($data) == 16);
+
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
 if(isset($_POST["public_chat"])) {
 	Predis\Autoloader::register();
 $r = new Predis\Client();
-$chatkeyfix = "public_chat_%s";
+$chatkeyfix = "pc_%s";
 $formattingfix = "%s_%s_%s";
-$public_chat_key = sprintf($chatkeyfix,date('Ymdhis'));
+$public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
 $public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$_POST["public_chat"]);
 $r->set($public_chat_key,$public_chat_data);
 }
@@ -69,7 +79,7 @@ $r = new Predis\Client();
 //$coolio = $r->get("set");
 
 // check for session id
-session_start();
+//session_start();
 if(!isset($_SESSION['user']))
 {   
     $array = explode("\n", file_get_contents('./assets/username_seeds.txt'));
@@ -78,13 +88,17 @@ if(!isset($_SESSION['user']))
     $username = clean($username);
     $_SESSION['user'] = $username;
     $username = $_SESSION['user'];
-    echo "<span>Your current session is active and your username is: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span><br />";
+    echo "<span>Session active, username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+           echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
+        echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
 }
 else
 {
 
     $username = $_SESSION['user'];
-    echo "<span>Your current session is active and your username is: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span><br />";
+    echo "<span>Session active, username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+       echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
+        echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
 };
     // debugging tools debug session variables this way
     //echo '<pre>';
@@ -113,6 +127,7 @@ li.publik {
 	display:block;
 	padding: 5px;
 	background: #4d4d4d;
+	margin-right:5%;
 }
 
 li {
@@ -123,27 +138,44 @@ li {
 span {
     color: white;
 }
+li span {
+	display:inline-block;
+	margin: 2px 4px;
+}
+li span.titler {
+	margin:2px 4px;
+	text-transform: uppercase;
+}
+li span.dater {
+	font-weight: 400;
+	color: #E71D36;
+}
+li span.messager {
+	float:right;
+	
+}
 a,span.sender {
     color: #58C999;
     font-weight: bold;
 }
 a.clearer {
     color: #E71D36;
-    position:fixed;
-    bottom:20px;
+    display: inline-block;
+    top:10px;
     padding: 4px 10px;
     margin:10px;
     border: 2px solid #E71D36;
+    background: #f2f2f2;
 }
 a.clearer-float {
     color: #E71D36;
-    position: fixed;
-    bottom:20px;
-    left: 300px;
+    display: inline-block;
+    top:10px;
+    right: 300px;
     padding: 4px 10px;
     margin:10px;
     border: 2px solid #E71D36;
-    float:right;
+    background:#f2f2f2;
 }
 a:hover {
     color: #FFF;
@@ -153,6 +185,9 @@ h1 {
     overflow-x: hidden;
     white-space:nowrap;
 }
+a.clearer:hover, a.clearer-float:hover {
+	color: #121212;
+}
 </style>
 </head>
 <body>
@@ -160,7 +195,7 @@ h1 {
     <div>
         <form action='index.php' id='EXCOM' method='POST'>
             <ul>
-                <li><span class='sender'><?php echo $username;?></span></li>
+                <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li>
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
@@ -172,10 +207,11 @@ h1 {
         <?php include('public.php');?>
     </div>
     <div>
-	    <h2>Latest messages (public messages expire every 24 hours)</h2>
+	    <h2>Latest messages (public messages expire every hour)</h2>
 	    <?php include('get_pub.php');?>
     <footer>
-        <?php echo "<span><a class='clearer' href='index.php?clear=true'>Clear current session</a></span>";?>
-        <?php echo "<span><a class='clearer-float' href='index.php?logout=true'>Logout</a></span>";?>
+	    <div class'cover'>
+
+	    </div>
     </footer>
 </body>
