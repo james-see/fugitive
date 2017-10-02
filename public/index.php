@@ -109,7 +109,7 @@ if(!isset($_SESSION['user']))
     $username = clean($username);
     $_SESSION['user'] = $username;
     $username = $_SESSION['user'];
-    echo "<span>Session active, username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+    echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
            echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
 }
@@ -117,7 +117,8 @@ else
 {
 
     $username = $_SESSION['user'];
-    echo "<span>Session active, username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+    echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+       echo "<span><a class='clearer' href='private.php'>Start Private Chat</a></span>";
        echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
 };
