@@ -8,6 +8,17 @@
 	#echo date('Y-m-d');
 	$curdate = date('Y-m-d');
 
+function truncateString($str, $chars, $to_space, $replacement="...") {
+   if($chars > strlen($str)) return $str;
+
+   $str = substr($str, 0, $chars);
+   $space_pos = strrpos($str, " ");
+   if($to_space && $space_pos >= 0) 
+       $str = substr($str, 0, strrpos($str, " "));
+
+   return($str . $replacement);
+}
+
 function guidv4($data)
 {
     assert(strlen($data) == 16);
@@ -18,15 +29,19 @@ function guidv4($data)
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-if(isset($_POST["public_chat"])) {
+if(isset($_POST["public_chat"]) && isset($_POST["username_hidden"])) {
+	$postdata = strip_tags($_POST["public_chat"]);
+	if (strlen($postdata) > 500) {
+		$postdata = truncateString($postdata, 450, true, '...');
+	}
 	Predis\Autoloader::register();
 $r = new Predis\Client();
 $chatkeyfix = "pc_%s";
 $formattingfix = "%s_%s_%s";
 $public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
-$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$_POST["public_chat"]);
+$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$postdata);
 $r->set($public_chat_key,$public_chat_data);
-$r->expire($public_chat_key,60);
+$r->expire($public_chat_key,30);
 unset($_POST["public_chat"]);
 header('location:'.$_SERVER['PHP_SELF']);
 die();
@@ -37,6 +52,10 @@ if(isset($_GET['clear'])) {
     header("Location: index.php");
     session_start();
     $oldusername = $_SESSION['user'];
+    Predis\Autoloader::register();
+$r = new Predis\Client();
+$fixed = "user_%s";
+$r->del(sprintf($fixed,$oldusername));
     unset($_SESSION);
     unset($_SESSION['user']);
     session_unset();
@@ -44,9 +63,6 @@ if(isset($_GET['clear'])) {
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache"); 
     header("Expires: 0"); 
-Predis\Autoloader::register();
-$r = new Predis\Client();
-$r->srem("current_public_users",$oldusername);
 }
 
 // on logout destroy user and session
@@ -63,7 +79,8 @@ if(isset($_GET['logout'])) {
     header("Expires: 0"); 
 Predis\Autoloader::register();
 $r = new Predis\Client();
-$r->srem("current_public_users",$oldusername);
+$fixed = "user_%s";
+$r->del(sprintf($fixed,$oldusername));
 }
 
 // functions
@@ -197,21 +214,22 @@ a.clearer:hover, a.clearer-float:hover {
 <body>
     <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
-        <form action='index.php' id='EXCOM' method='POST' autocomplete="off">
+        <form action='index.php' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
                 <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
-                <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li>
+                <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>"/>
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
     </div>
     <div>
         <h1>FUGITIVE PUBLIC CHAT</h1>
-        <h2>Current Users:</h2>
+        <!-- echo out current users -->
         <?php include('public.php');?>
+        
     </div>
     <div>
-	    <h2>Latest messages (public messages expire every minute)</h2>
+	    <h2>Latest messages (public messages expire every 30 seconds)</h2>
 	    <?php include('get_pub.php');?>
     <footer>
 	    <div class'cover'>
