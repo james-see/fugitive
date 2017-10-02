@@ -26,6 +26,10 @@ $formattingfix = "%s_%s_%s";
 $public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
 $public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$_POST["public_chat"]);
 $r->set($public_chat_key,$public_chat_data);
+$r->expire($public_chat_key,60);
+unset($_POST["public_chat"]);
+header('location:'.$_SERVER['PHP_SELF']);
+die();
 }
 
 // on change identity, clear old one and generate new one
@@ -193,7 +197,7 @@ a.clearer:hover, a.clearer-float:hover {
 <body>
     <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
-        <form action='index.php' id='EXCOM' method='POST'>
+        <form action='index.php' id='EXCOM' method='POST' autocomplete="off">
             <ul>
                 <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li>
@@ -207,7 +211,7 @@ a.clearer:hover, a.clearer-float:hover {
         <?php include('public.php');?>
     </div>
     <div>
-	    <h2>Latest messages (public messages expire every hour)</h2>
+	    <h2>Latest messages (public messages expire every minute)</h2>
 	    <?php include('get_pub.php');?>
     <footer>
 	    <div class'cover'>
