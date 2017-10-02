@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <style type="text/css">
     body {
     font-family: "Input Mono","PT Sans", "Consolas", monospace;

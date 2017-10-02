@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <?php
-// troubleshooting
+	session_start();
+	require 'Predis/Autoloader.php';
+	#ini_set('display_errors', 1);
+#ini_set('display_startup_errors', 1);
+#error_reporting(E_ALL);
+	#echo date('Y-m-d');
+	$curdate = date('Y-m-d');
+
+if(isset($_POST["public_chat"])) {
+	Predis\Autoloader::register();
+$r = new Predis\Client();
+$chatkeyfix = "public_chat_%s";
+$formattingfix = "%s_%s_%s";
+$public_chat_key = sprintf($chatkeyfix,date('Ymdhis'));
+$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$_POST["public_chat"]);
+$r->set($public_chat_key,$public_chat_data);
+}
+
+// on change identity, clear old one and generate new one
 if(isset($_GET['clear'])) { 
     header("Location: index.php");
     session_start();
@@ -12,12 +30,12 @@ if(isset($_GET['clear'])) {
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache"); 
     header("Expires: 0"); 
-    require 'Predis/Autoloader.php';
 Predis\Autoloader::register();
 $r = new Predis\Client();
 $r->srem("current_public_users",$oldusername);
 }
 
+// on logout destroy user and session
 if(isset($_GET['logout'])) { 
     header("Location: bye.php");
     session_start();
@@ -29,15 +47,11 @@ if(isset($_GET['logout'])) {
     header("Cache-Control: no-cache, no-store, must-revalidate");
     header("Pragma: no-cache"); 
     header("Expires: 0"); 
-    require 'Predis/Autoloader.php';
 Predis\Autoloader::register();
 $r = new Predis\Client();
 $r->srem("current_public_users",$oldusername);
 }
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 // functions
 function clean($string) {
    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
@@ -46,7 +60,6 @@ function clean($string) {
 }
 
 // redis connection
-require 'Predis/Autoloader.php';
 Predis\Autoloader::register();
 $r = new Predis\Client();
 //$r->srem("current_public_users","jamesc");
@@ -72,13 +85,14 @@ else
 
     $username = $_SESSION['user'];
     echo "<span>Your current session is active and your username is: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span><br />";
-}
+};
     // debugging tools debug session variables this way
     //echo '<pre>';
     //var_dump($_SESSION);
     //echo '</pre>';
 ?>
 <head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <style type="text/css"> 
 input, select, textarea, button {
     font-family:inherit;
@@ -94,6 +108,13 @@ body {
 ul {
     list-style: none;
 }
+
+li.publik {
+	display:block;
+	padding: 5px;
+	background: #4d4d4d;
+}
+
 li {
     display: inline-block;
     padding:5px;
@@ -137,10 +158,10 @@ h1 {
 <body>
     <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
-        <form action='add.php' id='EXCOM' method='POST'>
+        <form action='index.php' id='EXCOM' method='POST'>
             <ul>
                 <li><span class='sender'><?php echo $username;?></span></li>
-                <li><input style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li>
+                <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li>
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
@@ -150,6 +171,9 @@ h1 {
         <h2>Current Users:</h2>
         <?php include('public.php');?>
     </div>
+    <div>
+	    <h2>Latest messages (public messages expire every 24 hours)</h2>
+	    <?php include('get_pub.php');?>
     <footer>
         <?php echo "<span><a class='clearer' href='index.php?clear=true'>Clear current session</a></span>";?>
         <?php echo "<span><a class='clearer-float' href='index.php?logout=true'>Logout</a></span>";?>
