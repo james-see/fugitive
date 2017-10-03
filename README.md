@@ -47,10 +47,10 @@ _note: not fully working yet, only user info is displayed and stored as session,
 8. `pear install nrk/predis`
 
 # regardless of OS do these after following steps above   
-clone repo to a nice folder
-copy over nginx-fugitive.example to /etc/nginx/sites-available/fugitive
-modify it as necessary `sudo nano /etc/nginx/sites-available/fugitive` change root location and domain name
-confirm you have a domain and dns zone file setup to point to your host and then run certbot to enforce https
+clone repo to a nice folder   
+copy over nginx-fugitive.example to /etc/nginx/sites-available/fugitive   
+modify it as necessary `sudo nano /etc/nginx/sites-available/fugitive` change root location and domain name   
+confirm you have a domain and dns zone file setup to point to your host and then run certbot to enforce https   
 
 ## style guide   
 Logo: link: (https://j1c.co/2y1TQZV)     
