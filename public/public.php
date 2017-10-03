@@ -17,7 +17,7 @@
     $r->expire(sprintf($usernameformat,$username),30);
     $formatted = "%s:%s:%s";
     $fulluserinfo = sprintf($formatted,$username,$ip,$curdate);
-    $r->sadd("user_ip_info",$fulluserinfo);
+    $r->sadd("users_ip_info",$fulluserinfo);
 #}
 //$r->sadd("current_public_users","jamesc");
 $currentusers_array = $r->keys("user_*");

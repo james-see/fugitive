@@ -210,6 +210,12 @@ h1 {
 a.clearer:hover, a.clearer-float:hover {
 	color: #121212;
 }
+input:invalid {
+  outline: 2px solid red;
+}
+input:focus:invalid {
+  color: red;
+}
 </style>
 </head>
 <body>
@@ -218,7 +224,7 @@ a.clearer:hover, a.clearer-float:hover {
         <form action='index.php' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
                 <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
-                <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text"/></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>"/>
+                <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text" required /></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>" required />
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
