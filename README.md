@@ -22,7 +22,10 @@ _note: not fully working yet, only user info is displayed and stored as session,
 
 ## install guide OSX
 
-1. install homebrew (https://brew.sh)
+1. install homebrew (https://brew.sh) or run 
+```   
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```   
 2. `brew install php72 --with-pear`
 3. `brew install redis-server`
 4. `brew install php72-redis`
