@@ -41,7 +41,7 @@ _note: not fully working yet, only user info is displayed and stored as session,
 # install guide Ubuntu 14.04 LTS
 
 1. `sudo add-apt-repository ppa:ondrej/php`
-2. `sudo add-apt-repository  
+2. `sudo add-apt-repository sudo add-apt-repository ppa:ondrej/nginx`
 3. `sudo apt-get update && sudo apt-get upgrade`
 4. `sudo apt-get install php7.0-fpm redis-server`
 5. `sudo apt-get install php7.0-redis php7.0-mcrypt`
