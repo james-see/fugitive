@@ -22,16 +22,38 @@ _note: not fully working yet, only user info is displayed and stored as session,
 
 ## install guide OSX
 
-1. install homebrew (https://brew.sh)
+1. install homebrew (https://brew.sh) or run 
+```   
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```   
 2. `brew install php72 --with-pear`
 3. `brew install redis-server`
 4. `brew install php72-redis`
+5. `pear channel-discover pear.nrk.io`
+6. `pear install nrk/predis`
 
 ## install guide Ubuntu 16.04 LTS
 
 1. update apt
-2. install redis, php7+, e.g. `sudo apt install -y redis-server php7.0-fpm php7.0-redis`
+2. install redis, php7+, e.g. `sudo apt install -y redis-server php7.0-fpm php7.0-redis php7.0-mcrypt`
 3. install nginx `sudo apt install -y nginx`
+
+# install guide Ubuntu 14.04 LTS
+
+1. `sudo add-apt-repository ppa:ondrej/php`
+2. `sudo add-apt-repository sudo add-apt-repository ppa:ondrej/nginx`
+3. `sudo apt-get update && sudo apt-get upgrade`
+4. `sudo apt-get install php7.0-fpm redis-server`
+5. `sudo apt-get install php7.0-redis php7.0-mcrypt`
+6. `sudo apt-get install php7.0-xml`
+7. `pear channel-discover pear.nrk.io`
+8. `pear install nrk/predis`
+
+# regardless of OS do these after following steps above   
+clone repo to a nice folder   
+copy over nginx-fugitive.example to /etc/nginx/sites-available/fugitive   
+modify it as necessary `sudo nano /etc/nginx/sites-available/fugitive` change root location and domain name   
+confirm you have a domain and dns zone file setup to point to your host and then run certbot to enforce https   
 
 ## style guide   
 Logo: link: (https://j1c.co/2y1TQZV)     
@@ -41,26 +63,61 @@ font: Josefin Sans
 
 ```
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+    listen 80;
+    
+    # ssl stuff to secure your shit
+    ssl_protocols TLSv1.2;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+    root /home/[yourusername]/projects/fugitive/public/;
+    index index.php index.html index.htm;
+    access_log /home/[yourusername]/projects/logs/access.log;
+    error_log /home/cjer/[yourusername]/logs/error.log error;
+    server_name mycooldomain.chat;
 
-    root /path to repo /public/;
-    index index.php index.html index.htm index.nginx-debian.html;
-
-    server_name server_domain_or_IP;
-
+    # header info
+    add_header X-Frame-Options DENY;
+    add_header Strict-Transport-Security max-age=15768000;
+    
     location / {
         try_files $uri $uri/ =404;
     }
 
     location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        try_files $uri $uri/ @rewrites;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    
+    # rewrites
+    location @rewrites {
+    if ($uri ~* ^/([a-z]+)$) {
+        set $page_to_view "/$1.php";
+        rewrite ^/([a-z]+)$ /$1.php last;
     }
 
     location ~ /\.ht {
         deny all;
     }
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/yourcooldomain.chat/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/yourcooldomain.chat/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    
+    	error_page 502 /502.html;
+ location = /502.html {
+
+      root  /home/[yourusername]/projects/errors/;
+
+  }
 }
 ```
 
