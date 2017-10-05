@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	session_start();
+
 	require 'Predis/Autoloader.php';
 	#ini_set('display_errors', 1);
 #ini_set('display_startup_errors', 1);
@@ -29,22 +30,28 @@ function guidv4($data)
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-if(isset($_POST["public_chat"]) && isset($_POST["username_hidden"])) {
-	$postdata = strip_tags($_POST["public_chat"]);
-	if (strlen($postdata) > 500) {
-		$postdata = truncateString($postdata, 450, true, '...');
+if(isset($_POST["public_chat"]) && isset($_POST["username_hidden"]) && isset($_POST['capt'])) {
+	//session_start();
+	if($_POST['capt'] == $_SESSION['captcha']['code']) {
+		$postdata = strip_tags($_POST["public_chat"]);
+		if (strlen($postdata) > 500) {
+			$postdata = truncateString($postdata, 450, true, '...');
+		}
+		# redis log public chat
+		Predis\Autoloader::register();
+		$r = new Predis\Client();
+		$chatkeyfix = "pc_%s";
+		$formattingfix = "%s_%s_%s";
+		$public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
+		$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$postdata);
+		$r->set($public_chat_key,$public_chat_data);
+		$r->expire($public_chat_key,30);
+		unset($_POST["public_chat"]);
+		unset($_POST["capt"]);
+		unset($_POST["username_hidden"]);
+		header('location:'.$_SERVER['PHP_SELF']);
+		die();
 	}
-	Predis\Autoloader::register();
-$r = new Predis\Client();
-$chatkeyfix = "pc_%s";
-$formattingfix = "%s_%s_%s";
-$public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
-$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$postdata);
-$r->set($public_chat_key,$public_chat_data);
-$r->expire($public_chat_key,30);
-unset($_POST["public_chat"]);
-header('location:'.$_SERVER['PHP_SELF']);
-die();
 }
 
 // on change identity, clear old one and generate new one
@@ -91,6 +98,13 @@ function clean($string) {
 }
 
 // redis connection
+	include("assets/simple-php-captcha/simple-php-captcha.php");
+	$_SESSION['captcha'] = simple_php_captcha(array('angle_min' => 20,
+    'angle_max' => 40, 'min_font_size' => 14, 'color' => '#a3a3a3',  'shadow_color' => '#f2f2f2',
+    'shadow_offset_x' => 3,
+    'shadow_offset_y' => 3, 'min_length' => 5,
+    'max_length' => 8,
+    'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
 Predis\Autoloader::register();
 $r = new Predis\Client();
 //$r->srem("current_public_users","jamesc");
@@ -109,6 +123,7 @@ if(!isset($_SESSION['user']))
     $username = clean($username);
     $_SESSION['user'] = $username;
     $username = $_SESSION['user'];
+    $_SESSION['captcha'] = simple_php_captcha();
     echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
            echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
@@ -225,6 +240,8 @@ input:focus:invalid {
             <ul>
                 <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text" required /></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>" required />
+                <li><img src='<?php echo $_SESSION['captcha']['image_src'];?>'</li>
+                <li><input name='capt' placeholder="put in captcha here" type="text" required /></li>
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
