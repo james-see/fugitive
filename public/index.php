@@ -45,7 +45,7 @@ if(isset($_POST["public_chat"]) && isset($_POST["username_hidden"]) && isset($_P
 		$public_chat_key = sprintf($chatkeyfix,guidv4(random_bytes(16)));
 		$public_chat_data = sprintf($formattingfix,date('Ymdhis'),$_SESSION['user'],$postdata);
 		$r->set($public_chat_key,$public_chat_data);
-		$r->expire($public_chat_key,30);
+		$r->expire($public_chat_key,300);
 		unset($_POST["public_chat"]);
 		unset($_POST["capt"]);
 		unset($_POST["username_hidden"]);
@@ -123,9 +123,16 @@ if(!isset($_SESSION['user']))
     $username = clean($username);
     $_SESSION['user'] = $username;
     $username = $_SESSION['user'];
-    $_SESSION['captcha'] = simple_php_captcha();
+	$_SESSION['captcha'] = simple_php_captcha(array('angle_min' => 20,
+    'angle_max' => 40, 'min_font_size' => 14, 'color' => '#a3a3a3',  'shadow_color' => '#f2f2f2',
+    'shadow_offset_x' => 3,
+    'shadow_offset_y' => 3, 'min_length' => 5,
+    'max_length' => 8,
+    'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
+
     echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
-           echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
+    	echo "<span><a class='clearer' href='private.php'>Start Private Chat</a></span>";
+        echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
 }
 else
@@ -144,6 +151,7 @@ else
 ?>
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<meta http-equiv="refresh" content="30" >
 <style type="text/css"> 
 input, select, textarea, button {
     font-family:inherit;
@@ -155,6 +163,7 @@ body {
     font-size: 16px;
     background: #343434;
     letter-spacing: 0.08em;
+    margin: 0 auto;
 }
 ul {
     list-style: none;
@@ -231,6 +240,151 @@ input:invalid {
 input:focus:invalid {
   color: red;
 }
+
+/* for countdown */
+@-webkit-keyframes change-color {
+  0%   { background-color: #333333; }
+  50% { background-color: red; }
+  100% {color: #333333; background-color:#333333;}
+}
+@-moz-keyframes change-color {
+  0%   { background-color: #333333; }
+  50% { background-color: red; }
+  100% {color: #333333; background-color:#333333;}
+}
+@-o-keyframes change-color {
+  0%   { background-color: #333333; }
+  50% { background-color: red; }
+  100% {color: #333333; background-color:#333333;}
+}
+@keyframes change-color {
+  0%   { background-color: #333333; }
+  50% { background-color: red; }
+  100% {color: #333333; background-color:#333333;}
+}
+
+@-webkit-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+@-moz-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+  }
+@-o-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+@keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+
+table,td,tr {
+	font-family: "Lucida Console", Monaco, monospace;
+	margin: 0 auto;
+	font-size: 16px;
+}
+.fader2 {
+	color: red;
+width:70%; 
+    margin-left:5%; 
+    margin-right:5%;
+}
+#td1 {
+	animation:         change-color 30.0s ease-in-out 0s forwards;
+}
+#td2 {
+	animation:         change-color 29.0s ease-in-out 0s forwards;
+}
+#td3 {
+	animation:         change-color 28.0s ease-in-out 0s forwards;
+}
+#td4 {
+	animation:         change-color 27.0s ease-in-out 0s forwards;
+}
+#td5 {
+	animation:         change-color 26.0s ease-in-out 0s forwards;
+}
+#td6 {
+	animation:         change-color 25.0s ease-in-out 0s forwards;
+}
+#td7 {
+	animation:         change-color 24.0s ease-in-out 0s forwards;
+}
+#td8 {
+	animation:         change-color 23.0s ease-in-out 0s forwards;
+}
+#td9 {
+	animation:         change-color 22.0s ease-in-out 0s forwards;
+}
+#td10 {
+	animation:         change-color 21.0s ease-in-out 0s forwards;
+}
+#td11 {
+	animation:         change-color 20.0s ease-in-out 0s forwards;
+}
+#td12 {
+	animation:         change-color 19.0s ease-in-out 0s forwards;
+}
+#td13 {
+	animation:         change-color 18.0s ease-in-out 0s forwards;
+}
+#td14 {
+	animation:         change-color 17.0s ease-in-out 0s forwards;
+}
+#td15 {
+	animation:         change-color 16.0s ease-in-out 0s forwards;
+}
+#td16 {
+	animation:         change-color 15.0s ease-in-out 0s forwards;
+}
+#td17 {
+	animation:         change-color 14.0s ease-in-out 0s forwards;
+}
+#td18 {
+	animation:         change-color 13.0s ease-in-out 0s forwards;
+}
+#td19 {
+	animation:         change-color 12.0s ease-in-out 0s forwards;
+}
+#td20 {
+	animation:         change-color 11.0s ease-in-out 0s forwards;
+}
+#td21 {
+	animation:         change-color 10.0s ease-in-out 0s forwards;
+}
+#td22 {
+	animation:         change-color 9.0s ease-in-out 0s forwards;
+}
+#td23 {
+	animation:         change-color 8.0s ease-in-out 0s forwards;
+}
+#td24 {
+	animation:         change-color 7.0s ease-in-out 0s forwards;
+}
+#td25 {
+	animation:         change-color 6.0s ease-in-out 0s forwards;
+}
+#td26 {
+	animation:         change-color 5.0s ease-in-out 0s forwards;
+}
+#td27 {
+	animation:         change-color 4.0s ease-in-out 0s forwards;
+}
+#td28 {
+	animation:         change-color 3.0s ease-in-out 0s forwards;
+}
+#td29 {
+	animation:         change-color 2.0s ease-in-out 0s forwards;
+}
+#td30 {
+	animation:         change-color 1.0s ease-in-out 0s forwards;
+}
+
+.fader2 {
+	animation: wipeme 30.0s ease-in-out 0s forwards;
+}
 </style>
 </head>
 <body>
@@ -245,15 +399,50 @@ input:focus:invalid {
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
+        <table class="fader2" cellpadding="10" cellspacing="2">
+<tr>
+<td id='td30'>30</td>
+<td id='td29'>29</td>
+<td id='td28'>28</td>
+<td id='td27'>27</td>
+<td id='td26'>26</td>
+<td id='td25'>25</td>
+<td id='td24'>24</td>
+<td id='td23'>23</td>
+<td id='td22'>22</td>
+<td id='td21'>21</td>
+<td id='td20'>20</td>
+<td id='td19'>19</td>
+<td id='td18'>18</td>
+<td id='td17'>17</td>
+<td id='td16'>16</td>
+<td id='td15'>15</td>
+<td id='td14'>14</td>
+<td id='td13'>13</td>
+<td id='td12'>12</td>
+<td id='td11'>11</td>
+<td id='td10'>10</td>
+<td id='td9'>9</td>
+<td id='td8'>8</td>
+<td id='td7'>7</td>
+<td id='td6'>6</td>
+<td id='td5'>5</td>
+<td id='td4'>4</td>
+<td id='td3'>3</td>
+<td id='td2'>2</td>
+<td id='td1'>1</td>
+</tr>
+</table>
     </div>
     <div>
         <h1>FUGITIVE PUBLIC CHAT</h1>
+        <h2> (PAGE REFRESHES EVERY 30 SECONDS) </h2>
         <!-- echo out current users -->
         <?php include('public.php');?>
         
     </div>
     <div>
-	    <h2>Latest messages (public messages expire every 30 seconds)</h2>
+	    <h2>Latest messages (Each message expires after 5 minutes)</h2>
 	    <?php include('get_pub.php');?>
     <footer>
 	    <div class'cover'>
