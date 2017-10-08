@@ -153,6 +153,17 @@ else
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<meta http-equiv="refresh" content="30" >
 <style type="text/css"> 
+	
+/* remove right click ability */
+html {
+	-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
 input, select, textarea, button {
     font-family:inherit;
     font-size: 14px;
@@ -387,7 +398,7 @@ width:70%;
 }
 </style>
 </head>
-<body>
+<body oncontextmenu="return false">
     <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
         <form action='index.php' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
