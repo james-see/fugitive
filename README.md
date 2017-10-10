@@ -86,6 +86,7 @@ server {
     
     location / {
         try_files $uri $uri/ =404;
+        rewrite ^(.+)/ $1.php;
     }
 
     location ~ \.php$ {
