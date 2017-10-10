@@ -49,14 +49,14 @@ if(isset($_POST["public_chat"]) && isset($_POST["username_hidden"]) && isset($_P
 		unset($_POST["public_chat"]);
 		unset($_POST["capt"]);
 		unset($_POST["username_hidden"]);
-		header('location:'.$_SERVER['PHP_SELF']);
+		header("Location: /");
 		die();
 	}
 }
 
 // on change identity, clear old one and generate new one
 if(isset($_GET['clear'])) { 
-    header("Location: index.php");
+    header("Location: /");
     session_start();
     $oldusername = $_SESSION['user'];
     Predis\Autoloader::register();
@@ -74,7 +74,7 @@ $r->del(sprintf($fixed,$oldusername));
 
 // on logout destroy user and session
 if(isset($_GET['logout'])) { 
-    header("Location: bye.php");
+    header("Location: /bye/");
     session_start();
     $oldusername = $_SESSION['user'];
     unset($_SESSION);
@@ -131,18 +131,18 @@ if(!isset($_SESSION['user']))
     'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
 
     echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
-    	echo "<span><a class='clearer' href='private.php'>Start Private Chat</a></span>";
-        echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
-        echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
+    	echo "<span><a class='clearer' href='/private/'>Start Private Chat</a></span>";
+        echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
+        echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
 }
 else
 {
 
     $username = $_SESSION['user'];
     echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
-       echo "<span><a class='clearer' href='private.php'>Start Private Chat</a></span>";
-       echo "<span><a class='clearer' href='index.php?clear=true'>Generate new user</a></span>";
-        echo "<span><a class='clearer-float' href='index.php?logout=true'>End Session</a></span>";
+       echo "<span><a class='clearer' href='/private/'>Start Private Chat</a></span>";
+       echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
+        echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
 };
     // debugging tools debug session variables this way
     //echo '<pre>';
@@ -401,7 +401,7 @@ width:70%;
 <body oncontextmenu="return false">
     <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
     <div>
-        <form action='index.php' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
+        <form action='/' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
                 <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text" required /></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>" required />

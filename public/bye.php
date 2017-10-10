@@ -17,6 +17,6 @@ a,span.sender {
     <body>
         <div>
             <h1> goodbye</h1>
-            <a href='index.php'>chat again</a>
+            <a href='/'>chat again</a>
         </div>
     </body>
