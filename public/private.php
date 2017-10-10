@@ -64,7 +64,7 @@ function base64_url_encode($input) {
 
 $privchat = encodeBase58('BCBC44BC');
 $encoded = base64_encode(sprintf('chat=%s',$privchat));
-	header('location:privv.php?'.$encoded);
+	header('location:/privv/?'.$encoded);
 	?>
 <head>
 </head>

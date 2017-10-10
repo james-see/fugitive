@@ -32,6 +32,6 @@ $r = new Predis\Client();
 <body>
     <?php if(isset($_GET['user'])) {$username = $_GET['user'];}
     echo "profile page for $username<br />";
-    echo "<a href='index.php'>back to main page</a>";
+    echo "<a href='/'>back to main page</a>";
     ?>
 </body>

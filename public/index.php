@@ -130,7 +130,7 @@ if(!isset($_SESSION['user']))
     'max_length' => 8,
     'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
 
-    echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+    echo "<span>Username: <b style='color: #58C999;'><a href='/profile/?user=$username'>".$username."</a></b></span>";
     	echo "<span><a class='clearer' href='/private/'>Start Private Chat</a></span>";
         echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
