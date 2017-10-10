@@ -190,7 +190,7 @@ li.publik {
 li {
     display: inline-block;
     padding:5px;
-    margin:2px 4px;
+    /*margin:2px 4px;*/
 }
 span {
     color: white;
@@ -291,16 +291,35 @@ input:focus:invalid {
   100% { visibility: hidden; }
 }
 
-table,td,tr {
+ul.fader2,li {
+	text-align:center;
+	  -webkit-margin-before: 0px;
+-webkit-margin-after: 0px;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 0px;
 	font-family: "Lucida Console", Monaco, monospace;
 	margin: 0 auto;
 	font-size: 16px;
+  list-style:none;
+  padding:0;
+
+}
+li {
+	  -webkit-margin-before: 0px;
+-webkit-margin-after: 0px;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 0px;
+  display: inline-block;
+  padding:5px;
+  margin:0;
+
 }
 .fader2 {
 	color: red;
 width:70%; 
-    margin-left:5%; 
-    margin-right:5%;
+
 }
 #td1 {
 	animation:         change-color 30.0s ease-in-out 0s forwards;
@@ -410,40 +429,40 @@ width:70%;
                 <li><button id='submitted' value='send' type='submit'>send</button></li>
             </ul>
         </form>
-        <table class="fader2" cellpadding="10" cellspacing="2">
-<tr>
-<td id='td30'>30</td>
-<td id='td29'>29</td>
-<td id='td28'>28</td>
-<td id='td27'>27</td>
-<td id='td26'>26</td>
-<td id='td25'>25</td>
-<td id='td24'>24</td>
-<td id='td23'>23</td>
-<td id='td22'>22</td>
-<td id='td21'>21</td>
-<td id='td20'>20</td>
-<td id='td19'>19</td>
-<td id='td18'>18</td>
-<td id='td17'>17</td>
-<td id='td16'>16</td>
-<td id='td15'>15</td>
-<td id='td14'>14</td>
-<td id='td13'>13</td>
-<td id='td12'>12</td>
-<td id='td11'>11</td>
-<td id='td10'>10</td>
-<td id='td9'>9</td>
-<td id='td8'>8</td>
-<td id='td7'>7</td>
-<td id='td6'>6</td>
-<td id='td5'>5</td>
-<td id='td4'>4</td>
-<td id='td3'>3</td>
-<td id='td2'>2</td>
-<td id='td1'>1</td>
-</tr>
-</table>
+<div>
+<ul class="fader2">
+<li id='td30'>30</li>
+<li id='td29'>29</li>
+<li id='td28'>28</li>
+<li id='td27'>27</li>
+<li id='td26'>26</li>
+<li id='td25'>25</li>
+<li id='td24'>24</li>
+<li id='td23'>23</li>
+<li id='td22'>22</li>
+<li id='td21'>21</li>
+<li id='td20'>20</li>
+<li id='td19'>19</li>
+<li id='td18'>18</li>
+<li id='td17'>17</li>
+<li id='td16'>16</li>
+<li id='td15'>15</li>
+<li id='td14'>14</li>
+<li id='td13'>13</li>
+<li id='td12'>12</li>
+<li id='td11'>11</li>
+<li id='td10'>10</li>
+<li id='td9'>9</li>
+<li id='td8'>8</li>
+<li id='td7'>7</li>
+<li id='td6'>6</li>
+<li id='td5'>5</li>
+<li id='td4'>4</li>
+<li id='td3'>3</li>
+<li id='td2'>2</li>
+<li id='td1'>1</li>
+</ul>
+</div>
     </div>
     <div>
         <h1>FUGITIVE PUBLIC CHAT</h1>
