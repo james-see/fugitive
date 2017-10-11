@@ -102,8 +102,8 @@ function clean($string) {
 	$_SESSION['captcha'] = simple_php_captcha(array('angle_min' => 20,
     'angle_max' => 40, 'min_font_size' => 14, 'color' => '#a3a3a3',  'shadow_color' => '#f2f2f2',
     'shadow_offset_x' => 3,
-    'shadow_offset_y' => 3, 'min_length' => 5,
-    'max_length' => 8,
+    'shadow_offset_y' => 3, 'min_length' => 4,
+    'max_length' => 6,
     'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
 Predis\Autoloader::register();
 $r = new Predis\Client();
@@ -126,11 +126,11 @@ if(!isset($_SESSION['user']))
 	$_SESSION['captcha'] = simple_php_captcha(array('angle_min' => 20,
     'angle_max' => 40, 'min_font_size' => 14, 'color' => '#a3a3a3',  'shadow_color' => '#f2f2f2',
     'shadow_offset_x' => 3,
-    'shadow_offset_y' => 3, 'min_length' => 5,
-    'max_length' => 8,
+    'shadow_offset_y' => 3, 'min_length' => 4,
+    'max_length' => 6,
     'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
 
-    echo "<span>Username: <b style='color: #58C999;'><a href='/profile/?user=$username'>".$username."</a></b></span>";
+    echo "<span class='bar'>Username: <b style='color: #58C999;'><a href='/profile/?user=$username'>".$username."</a></b></span>";
     	echo "<span><a class='clearer' href='/private/'>Start Private Chat</a></span>";
         echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
@@ -139,7 +139,7 @@ else
 {
 
     $username = $_SESSION['user'];
-    echo "<span>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
+    echo "<span class='bar'>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
        echo "<span><a class='clearer' href='/private/'>Start Private Chat</a></span>";
        echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
         echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
@@ -151,7 +151,7 @@ else
 ?>
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<meta http-equiv="refresh" content="30" >
+	<!--<meta http-equiv="refresh" content="30" >-->
 <style type="text/css"> 
 	
 /* remove right click ability */
@@ -170,9 +170,10 @@ input, select, textarea, button {
     }
 
 body {
+	color: #322E18;
     font-family: "Input Mono","PT Sans", "Consolas", monospace;
     font-size: 16px;
-    background: #343434;
+    background: #847979;
     letter-spacing: 0.08em;
     margin: 0 auto;
 }
@@ -180,24 +181,32 @@ ul {
     list-style: none;
 }
 
+span.bar {
+	margin: 2px 10px;
+
+}
+
 li.publik {
 	display:block;
 	padding: 5px;
-	background: #4d4d4d;
+	background: #ABA8B2;
 	margin-right:5%;
+	color: #A53F2B;
+	margin-bottom: 5px;
+	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 li {
     display: inline-block;
     padding:5px;
-    /*margin:2px 4px;*/
+    margin:2px 4px;
 }
 span {
     color: white;
 }
-li span {
+li span.sender {
 	display:inline-block;
-	margin: 2px 4px;
+	margin: 2px 10px;
 }
 li span.titler {
 	margin:2px 4px;
@@ -209,30 +218,42 @@ li span.dater {
 }
 li span.messager {
 	float:right;
+	color: #322E18;
 	
 }
-a,span.sender {
-    color: #58C999;
+a {
+    color: #FFF;
     font-weight: bold;
 }
+
+span.sender {
+    color: #A53F2B;
+    font-weight: bold;
+    margin: 2px 5px;
+}
+
 a.clearer {
-    color: #E71D36;
+    color: #E0E2DB;
     display: inline-block;
     top:10px;
     padding: 4px 10px;
     margin:10px;
-    border: 2px solid #E71D36;
-    background: #f2f2f2;
+    /*border: 2px solid #E0E2DB;*/
+    background: #4C4B63;
+    text-decoration: none;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 a.clearer-float {
-    color: #E71D36;
+    color: #E0E2DB;
     display: inline-block;
     top:10px;
     right: 300px;
     padding: 4px 10px;
     margin:10px;
-    border: 2px solid #E71D36;
-    background:#f2f2f2;
+    /*border: 2px solid #E0E2DB;*/
+    background: #4C4B63;
+    text-decoration: none;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 a:hover {
     color: #FFF;
@@ -241,37 +262,47 @@ a:hover {
 h1 {
     overflow-x: hidden;
     white-space:nowrap;
+    text-align: center;
 }
 a.clearer:hover, a.clearer-float:hover {
-	color: #121212;
+	color: #E0E2DB;
+	text-decoration: underline;
+	box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.19), 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	/*border: 2px solid #4C4B63;*/
 }
 input:invalid {
-  outline: 2px solid red;
+  outline: 2px solid #E0E2DB;
 }
 input:focus:invalid {
   color: red;
 }
 
+h2 {
+	vertical-align: center;
+	text-align: center;
+	font-size: 1.2em;
+}
+
 /* for countdown */
 @-webkit-keyframes change-color {
-  0%   { background-color: #333333; }
-  50% { background-color: red; }
-  100% {color: #333333; background-color:#333333;}
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
 }
 @-moz-keyframes change-color {
-  0%   { background-color: #333333; }
-  50% { background-color: red; }
-  100% {color: #333333; background-color:#333333;}
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
 }
 @-o-keyframes change-color {
-  0%   { background-color: #333333; }
-  50% { background-color: red; }
-  100% {color: #333333; background-color:#333333;}
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
 }
 @keyframes change-color {
-  0%   { background-color: #333333; }
-  50% { background-color: red; }
-  100% {color: #333333; background-color:#333333;}
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
 }
 
 @-webkit-keyframes wipeme {
@@ -291,8 +322,8 @@ input:focus:invalid {
   100% { visibility: hidden; }
 }
 
-ul.fader2,li {
-	text-align:center;
+ul.fader2 {
+	/*text-align:center;*/
 	  -webkit-margin-before: 0px;
 -webkit-margin-after: 0px;
 -webkit-margin-start: 0px;
@@ -305,7 +336,7 @@ ul.fader2,li {
   padding:0;
 
 }
-li {
+ul.fader2 li {
 	  -webkit-margin-before: 0px;
 -webkit-margin-after: 0px;
 -webkit-margin-start: 0px;
@@ -313,11 +344,11 @@ li {
 -webkit-padding-start: 0px;
   display: inline-block;
   padding:5px;
-  margin:0;
+  /*margin:2px 5px;*/
 
 }
 .fader2 {
-	color: red;
+	color: #A53F2B;
 width:70%; 
 
 }
@@ -422,7 +453,7 @@ width:70%;
     <div>
         <form action='/' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
-                <li style='background: #4d4d4d;'><span class='sender'><?php echo $username;?></span></li>
+                <li style='background: #4d4d4d;box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);'><span class='sender' style='color:#E0E2DB;'><?php echo $username;?></span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text" required /></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>" required />
                 <li><img src='<?php echo $_SESSION['captcha']['image_src'];?>'</li>
                 <li><input name='capt' placeholder="put in captcha here" type="text" required /></li>
@@ -472,7 +503,7 @@ width:70%;
         
     </div>
     <div>
-	    <h2>Latest messages (Each message expires after 5 minutes)</h2>
+	    <h2>Latest messages <br />(expires after 5 minutes)</h2>
 	    <?php include('get_pub.php');?>
     <footer>
 	    <div class'cover'>

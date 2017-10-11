@@ -23,11 +23,11 @@
 $currentusers_array = $r->keys("user_*");
 $totalusers = sizeof($currentusers_array);
 echo "<h2>Current Users: (total: ${totalusers})</h2>";
-echo "<ul>";
+echo "<ul style='margin:0 auto;width:70%;'>";
 foreach ($currentusers_array as $key => $value) {
 	$username = explode("_",$value);
 	$actually = $username[1];
-    echo "<li style='background: #4d4d4d;'><span class='sender'>${actually}</span></li>";
+    echo "<li style='background: #A53F2B;box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);'><span class='sender' style='color:#E0E2DB;font-weight:normal;'>${actually}</span></li>";
 } 
 echo "</ul>";
 ?>
