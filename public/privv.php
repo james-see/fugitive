@@ -9,12 +9,13 @@ $cooler = array_keys($_GET);
 echo $cooler[0];
 $decoded = base64_decode($cooler[0]);
 
-$mucher = explode('=',$decoded);
+$mucher = explode('=',$cooler[0]);
 ?>
 
 <head>
+	<!--<?php header('location:/'.$mucher[1]);?>-->
 </head>
 <body>
-	<?php echo $mucher[1];?>
+	<?php echo $mucher[0];?>
 </body>
 </html>

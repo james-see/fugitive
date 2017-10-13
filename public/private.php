@@ -62,9 +62,10 @@ function base64_url_encode($input) {
  return strtr(base64_encode($input), '+/=', '._-');
 }
 
-$privchat = encodeBase58('BCBC44BC');
-$encoded = base64_encode(sprintf('chat=%s',$privchat));
-	header('location:/privv/?'.$encoded);
+$privchat = encodeBase58(bin2hex(random_bytes(16)));
+//$encoded = base64_encode(sprintf('chat=%s',$privchat));
+$notencoded = sprintf('chat=%s',$privchat);
+	header('location:/privv/'.$privchat);
 	?>
 <head>
 </head>
