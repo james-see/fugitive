@@ -88,9 +88,11 @@ li span.messager {
 </head>
 <body>
 	<?php echo "<span>Welcome {$username} to chat session {$chatid}, page refreshing in {$randnum} seconds...</span>";?>
+<div><h2>Actual chat ability for private chats coming soon.</h2></div>
 	<footer>
 		<a href='/'>Back to home</a>
 	</footer>
 </body>
+
 
 </html>
