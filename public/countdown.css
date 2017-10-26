@@ -1,0 +1,163 @@
+/* for countdown */
+@-webkit-keyframes change-color {
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
+}
+@-moz-keyframes change-color {
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
+}
+@-o-keyframes change-color {
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
+}
+@keyframes change-color {
+  0%   { background-color: #847979; }
+  50% { background-color: #ABA8B2; }
+  100% {color: #847979; background-color:#847979;}
+}
+
+@-webkit-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+@-moz-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+  }
+@-o-keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+@keyframes wipeme {
+  0%   { visibility:visible; }
+  100% { visibility: hidden; }
+}
+
+ul.fader2 {
+	/*text-align:center;*/
+	  -webkit-margin-before: 0px;
+-webkit-margin-after: 0px;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 0px;
+	font-family: "Lucida Console", Monaco, monospace;
+	margin: 0 auto;
+	font-size: 16px;
+  list-style:none;
+  padding:0;
+
+}
+ul.fader2 li {
+	  -webkit-margin-before: 0px;
+-webkit-margin-after: 0px;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 0px;
+  display: inline-block;
+  padding:5px;
+  /*margin:2px 5px;*/
+
+}
+.fader2 {
+	color: #A53F2B;
+width:70%; 
+
+}
+#td1 {
+	animation:         change-color 30.0s ease-in-out 0s forwards;
+}
+#td2 {
+	animation:         change-color 29.0s ease-in-out 0s forwards;
+}
+#td3 {
+	animation:         change-color 28.0s ease-in-out 0s forwards;
+}
+#td4 {
+	animation:         change-color 27.0s ease-in-out 0s forwards;
+}
+#td5 {
+	animation:         change-color 26.0s ease-in-out 0s forwards;
+}
+#td6 {
+	animation:         change-color 25.0s ease-in-out 0s forwards;
+}
+#td7 {
+	animation:         change-color 24.0s ease-in-out 0s forwards;
+}
+#td8 {
+	animation:         change-color 23.0s ease-in-out 0s forwards;
+}
+#td9 {
+	animation:         change-color 22.0s ease-in-out 0s forwards;
+}
+#td10 {
+	animation:         change-color 21.0s ease-in-out 0s forwards;
+}
+#td11 {
+	animation:         change-color 20.0s ease-in-out 0s forwards;
+}
+#td12 {
+	animation:         change-color 19.0s ease-in-out 0s forwards;
+}
+#td13 {
+	animation:         change-color 18.0s ease-in-out 0s forwards;
+}
+#td14 {
+	animation:         change-color 17.0s ease-in-out 0s forwards;
+}
+#td15 {
+	animation:         change-color 16.0s ease-in-out 0s forwards;
+}
+#td16 {
+	animation:         change-color 15.0s ease-in-out 0s forwards;
+}
+#td17 {
+	animation:         change-color 14.0s ease-in-out 0s forwards;
+}
+#td18 {
+	animation:         change-color 13.0s ease-in-out 0s forwards;
+}
+#td19 {
+	animation:         change-color 12.0s ease-in-out 0s forwards;
+}
+#td20 {
+	animation:         change-color 11.0s ease-in-out 0s forwards;
+}
+#td21 {
+	animation:         change-color 10.0s ease-in-out 0s forwards;
+}
+#td22 {
+	animation:         change-color 9.0s ease-in-out 0s forwards;
+}
+#td23 {
+	animation:         change-color 8.0s ease-in-out 0s forwards;
+}
+#td24 {
+	animation:         change-color 7.0s ease-in-out 0s forwards;
+}
+#td25 {
+	animation:         change-color 6.0s ease-in-out 0s forwards;
+}
+#td26 {
+	animation:         change-color 5.0s ease-in-out 0s forwards;
+}
+#td27 {
+	animation:         change-color 4.0s ease-in-out 0s forwards;
+}
+#td28 {
+	animation:         change-color 3.0s ease-in-out 0s forwards;
+}
+#td29 {
+	animation:         change-color 2.0s ease-in-out 0s forwards;
+}
+#td30 {
+	animation:         change-color 1.0s ease-in-out 0s forwards;
+}
+
+.fader2 {
+	animation: wipeme 30.0s ease-in-out 0s forwards;
+}

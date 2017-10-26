@@ -79,13 +79,23 @@
 body {
   background-color: floralwhite;
   font-family: 'Libre Baskerville', serif;
-  font-style: italic;
-  /*font-size: 30px;
+  /*font-style: italic;
+  font-size: 30px;
   text-align: centeR;*/
 }
 
 div.wrapped {
 	margin:20px;
+	width: 90%;
+}
+
+span.titular {
+	clear: both;
+	padding:0 20px;
+	margin-right:10px;
+	font-family:"Helvetica", sans-serif;
+	float:left;
+	display: inline-flex;
 }
 
 a {

@@ -148,6 +148,7 @@ else
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<meta http-equiv="refresh" content="30" >
 	<link rel="stylesheet" type="text/css" href="fugitive.css">
+	<link rel="stylesheet" type="text/css" href="countdown.css">
 <style type="text/css"> 
 	
 /* remove right click ability */
@@ -171,7 +172,7 @@ body {
     font-size: 16px;
     background: #847979;
     letter-spacing: 0.08em;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 ul {
     list-style: none;
@@ -193,9 +194,9 @@ li.publik {
 }
 
 li {
-    display: inline-block;
-    padding:5px;
-    margin:2px 4px;
+    display: block;
+    padding: 5px;
+    margin: 2px 4px;
 }
 span {
     color: white;
@@ -278,189 +279,59 @@ h2 {
 	text-align: center;
 	font-size: 1.2em;
 }
-
-/* for countdown */
-@-webkit-keyframes change-color {
-  0%   { background-color: #847979; }
-  50% { background-color: #ABA8B2; }
-  100% {color: #847979; background-color:#847979;}
-}
-@-moz-keyframes change-color {
-  0%   { background-color: #847979; }
-  50% { background-color: #ABA8B2; }
-  100% {color: #847979; background-color:#847979;}
-}
-@-o-keyframes change-color {
-  0%   { background-color: #847979; }
-  50% { background-color: #ABA8B2; }
-  100% {color: #847979; background-color:#847979;}
-}
-@keyframes change-color {
-  0%   { background-color: #847979; }
-  50% { background-color: #ABA8B2; }
-  100% {color: #847979; background-color:#847979;}
-}
-
-@-webkit-keyframes wipeme {
-  0%   { visibility:visible; }
-  100% { visibility: hidden; }
-}
-@-moz-keyframes wipeme {
-  0%   { visibility:visible; }
-  100% { visibility: hidden; }
-  }
-@-o-keyframes wipeme {
-  0%   { visibility:visible; }
-  100% { visibility: hidden; }
-}
-@keyframes wipeme {
-  0%   { visibility:visible; }
-  100% { visibility: hidden; }
-}
-
-ul.fader2 {
-	/*text-align:center;*/
-	  -webkit-margin-before: 0px;
--webkit-margin-after: 0px;
--webkit-margin-start: 0px;
--webkit-margin-end: 0px;
--webkit-padding-start: 0px;
-	font-family: "Lucida Console", Monaco, monospace;
+input {
+	width: 80%;
+	height: 20px;
+	display:inline-block;
 	margin: 0 auto;
-	font-size: 16px;
-  list-style:none;
-  padding:0;
-
-}
-ul.fader2 li {
-	  -webkit-margin-before: 0px;
--webkit-margin-after: 0px;
--webkit-margin-start: 0px;
--webkit-margin-end: 0px;
--webkit-padding-start: 0px;
-  display: inline-block;
-  padding:5px;
-  /*margin:2px 5px;*/
-
-}
-.fader2 {
-	color: #A53F2B;
-width:70%; 
-
-}
-#td1 {
-	animation:         change-color 30.0s ease-in-out 0s forwards;
-}
-#td2 {
-	animation:         change-color 29.0s ease-in-out 0s forwards;
-}
-#td3 {
-	animation:         change-color 28.0s ease-in-out 0s forwards;
-}
-#td4 {
-	animation:         change-color 27.0s ease-in-out 0s forwards;
-}
-#td5 {
-	animation:         change-color 26.0s ease-in-out 0s forwards;
-}
-#td6 {
-	animation:         change-color 25.0s ease-in-out 0s forwards;
-}
-#td7 {
-	animation:         change-color 24.0s ease-in-out 0s forwards;
-}
-#td8 {
-	animation:         change-color 23.0s ease-in-out 0s forwards;
-}
-#td9 {
-	animation:         change-color 22.0s ease-in-out 0s forwards;
-}
-#td10 {
-	animation:         change-color 21.0s ease-in-out 0s forwards;
-}
-#td11 {
-	animation:         change-color 20.0s ease-in-out 0s forwards;
-}
-#td12 {
-	animation:         change-color 19.0s ease-in-out 0s forwards;
-}
-#td13 {
-	animation:         change-color 18.0s ease-in-out 0s forwards;
-}
-#td14 {
-	animation:         change-color 17.0s ease-in-out 0s forwards;
-}
-#td15 {
-	animation:         change-color 16.0s ease-in-out 0s forwards;
-}
-#td16 {
-	animation:         change-color 15.0s ease-in-out 0s forwards;
-}
-#td17 {
-	animation:         change-color 14.0s ease-in-out 0s forwards;
-}
-#td18 {
-	animation:         change-color 13.0s ease-in-out 0s forwards;
-}
-#td19 {
-	animation:         change-color 12.0s ease-in-out 0s forwards;
-}
-#td20 {
-	animation:         change-color 11.0s ease-in-out 0s forwards;
-}
-#td21 {
-	animation:         change-color 10.0s ease-in-out 0s forwards;
-}
-#td22 {
-	animation:         change-color 9.0s ease-in-out 0s forwards;
-}
-#td23 {
-	animation:         change-color 8.0s ease-in-out 0s forwards;
-}
-#td24 {
-	animation:         change-color 7.0s ease-in-out 0s forwards;
-}
-#td25 {
-	animation:         change-color 6.0s ease-in-out 0s forwards;
-}
-#td26 {
-	animation:         change-color 5.0s ease-in-out 0s forwards;
-}
-#td27 {
-	animation:         change-color 4.0s ease-in-out 0s forwards;
-}
-#td28 {
-	animation:         change-color 3.0s ease-in-out 0s forwards;
-}
-#td29 {
-	animation:         change-color 2.0s ease-in-out 0s forwards;
-}
-#td30 {
-	animation:         change-color 1.0s ease-in-out 0s forwards;
 }
 
-.fader2 {
-	animation: wipeme 30.0s ease-in-out 0s forwards;
+@media (max-width:480px) { /* change depending on the mobiles you're targeting */
+    input, select { /* add further tags here according to your needs */
+        height:30px;
+        font-size: 1.2em;
+        width:90%;
+        margin: 0 auto;
+        display:inline-block;
+    }
+    
+    button {
+    background-color: #4d4d4d;
+    border-radius:2px;
+    color: #fff;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 30px;
+    padding: 4px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+    vertical-align: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	}
 }
+
+
 </style>
 </head>
 <body oncontextmenu="return false">
+	<!-- hamburger hamburger -->
 	<div class='wrapped'>
 	        <input class="burger-check" id="burger-check" type="checkbox"><label for="burger-check" class="burger"></label>
+	        <span class="titular">welcome generated user: <a href='/profile/?user=<?php echo " ".$username;?>'><?php echo $username;?></a></span>
 			<nav id="navigation1" class="navigation">
 			  <ul>
-			    <li><a href='/profile/?user=<?php echo $username;?>'><?php echo $username;?></a></li>
 			    <li><a class='clearer' target='_blank' href='/private/'>Start Private Chat</a></li>
 			    <li><a class='clearer' href='/?clear=true'>Generate new user</a></li>
 			    <li><a class='clearer-float' href='/?logout=true'>End Session</a></li>
 			  </ul>
 			</nav>
+			
 	</div>
-        <h2> PAGE REFRESHES EVERY 30 SECONDS </h2>
     <div>
         <form action='/' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
-                <li style='background: #4d4d4d;box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);'><span class='sender' style='color:#E0E2DB;'><?php echo $username;?></span></li>
+                <li style='background: #4d4d4d;box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);'><span class='sender' style='color:#E0E2DB;'>PAGE REFRESHES EVERY 30 SECONDS</span></li>
                 <li><input name='public_chat' style="min-width:300px;" placeholder="write PUBLIC message here" type="text" required /></li><input type='hidden' name='username_hidden' value="<?php echo $_SESSION['user'];?>" required />
                 <li><img src='<?php echo $_SESSION['captcha']['image_src'];?>'</li>
                 <li><input name='capt' placeholder="put in captcha here" type="text" required /></li>
