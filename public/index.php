@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
 	session_start();
 
@@ -128,21 +129,15 @@ if(!isset($_SESSION['user']))
     'shadow_offset_x' => 3,
     'shadow_offset_y' => 3, 'min_length' => 4,
     'max_length' => 6,
-    'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));
+    'max_font_size' => 22,'characters' => 'ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnprstuvwxyz23456789','shadow' => true,'fonts' => array('fonts/times_new_yorker.ttf','fonts/InputMonoCompressed-Medium.ttf','fonts/AppleMyungjo.ttf')));?>
 
-    echo "<span class='bar'>Username: <b style='color: #58C999;'><a href='/profile/?user=$username'>".$username."</a></b></span>";
-    	echo "<span><a class='clearer' target='_blank' href='/private/'>Start Private Chat</a></span>";
-        echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
-        echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
+<?php
 }
 else
 {
 
     $username = $_SESSION['user'];
-    echo "<span class='bar'>Username: <b style='color: #58C999;'><a href='profile.php?user=$username'>".$username."</a></b></span>";
-       echo "<span><a class='clearer' target='_blank' href='/private/'>Start Private Chat</a></span>";
-       echo "<span><a class='clearer' href='/?clear=true'>Generate new user</a></span>";
-        echo "<span><a class='clearer-float' href='/?logout=true'>End Session</a></span>";
+
 };
     // debugging tools debug session variables this way
     //echo '<pre>';
@@ -152,6 +147,7 @@ else
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<meta http-equiv="refresh" content="30" >
+	<link rel="stylesheet" type="text/css" href="fugitive.css">
 <style type="text/css"> 
 	
 /* remove right click ability */
@@ -449,7 +445,18 @@ width:70%;
 </style>
 </head>
 <body oncontextmenu="return false">
-    <h1><?php echo str_repeat("FUGITIVE.CHAT ", 7);?></h1>
+	<div class='wrapped'>
+	        <input class="burger-check" id="burger-check" type="checkbox"><label for="burger-check" class="burger"></label>
+			<nav id="navigation1" class="navigation">
+			  <ul>
+			    <li><a href='/profile/?user=<?php echo $username;?>'><?php echo $username;?></a></li>
+			    <li><a class='clearer' target='_blank' href='/private/'>Start Private Chat</a></li>
+			    <li><a class='clearer' href='/?clear=true'>Generate new user</a></li>
+			    <li><a class='clearer-float' href='/?logout=true'>End Session</a></li>
+			  </ul>
+			</nav>
+	</div>
+        <h2> PAGE REFRESHES EVERY 30 SECONDS </h2>
     <div>
         <form action='/' id='EXCOM' method='POST' autocomplete="off" maxlength="500">
             <ul>
@@ -496,8 +503,7 @@ width:70%;
 </div>
     </div>
     <div>
-        <h1>FUGITIVE PUBLIC CHAT</h1>
-        <h2> (PAGE REFRESHES EVERY 30 SECONDS) </h2>
+
         <!-- echo out current users -->
         <?php include('public.php');?>
         
